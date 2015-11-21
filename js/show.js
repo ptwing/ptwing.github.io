@@ -59,7 +59,7 @@ function showGames(firstRow,lastRow) {
 		var insallUrl=jsonGames[i]["game_url"];
 		// gamesHtml+='<div class="List_p"> <a href="'+insallUrl+'" class="RPic">';
 		// gamesHtml+='<img width="307px" height="151px" src="'+jsonGames[i]["img_src"]+'"/></a> ';
-		gamesHtml+='<div class="List_p"><img width="307px" height="151px" src="'+jsonGames[i]["img_src"]+'"/> ';
+		gamesHtml+='<div class="List_p"><img width="307px" height="181px" src="'+jsonGames[i]["img_src"]+'"/> ';
 		gamesHtml+='<span class="Name">'+jsonGames[i]["game_desc"]+'</span>';
 		//gamesHtml+='<input type="button" value="Install" onClick = installGame("'+insallUrl+'") class="Ins_bu"/></div>';
 		gamesHtml+='</div>';
