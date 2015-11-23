@@ -17,10 +17,10 @@ a{TEXT-DECORATION:none}
 .Logo li.current a{ color:#62bdff;}
 
 
-.Home_pic {width:1024px; height:600px;}
+.Home_pic {width:1024px; height:500px;}
 .Slid_pic {margin:0 0 0 2px;}
 .Slid_pics_div {position:relative;bottom:90px;width:1024px; height:70px;z-index:100;background:url(../images/home_bg.png) no-repeat; }
-.Slid_pics { position:relative;left:130px;width:1024px;z-index:100;}
+.Slid_pics { position:relative;left:320px;width:1024px;z-index:100;}
 .Slid_pic_div{float:left; width:125px; height:70px;background:url(../images/home_a.png) no-repeat;padding: 5px 0 0 0;margin:0 0 0 4px;}
 .Slid_select_div {float:left ;width:125px; height:70px;background:url(../images/home_b.png) no-repeat;padding: 5px 0 0 0;margin:0 0 0 4px;}
 
