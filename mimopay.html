@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ptwing</title>
+<link href="css/game.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+var config = [];
+config["11"] = { productName: "11+Diamond", amount: 10000};
+config["12"] = { productName: "27+Diamond", amount: 25000};
+config["13"] = { productName: "55+Diamond", amount: 50000};
+config["14"] = { productName: "110+Diamond", amount: 100000};
+config["15"] = { productName: "270+Diamond", amount: 250000};
+config["16"] = { productName: "550+Diamond", amount: 500000};
+config["21"] = { productName: "10+Diamond", amount: 10000};
+config["22"] = { productName: "20+Diamond", amount: 20000};
+config["23"] = { productName: "50+Diamond", amount: 50000};
+config["24"] = { productName: "100+Diamond", amount: 100000};
+
+function showPay(type) {
+	if (type == 1) {
+		$("#pay_title").text(" XL Axiata ");
+		$("#xl").css("display", "");
+		$("#telkomsel").css("display", "none");
+		$("#xl input[name='item']")[0].checked = true
+	} else {
+		$("#pay_title").text(" Telkomsel ");
+		$("#xl").css("display", "none");
+		$("#telkomsel").css("display", "");
+		$("#telkomsel input[name='item']")[0].checked = true
+	}
+}
+function beli() {
+	var item, data;
+	var type;
+	if ($("#xl").css("display") != "none") {
+		item = $("#xl input[name='item']:checked").val();
+		if (item == undefined) {
+			alert("Silahkan memilih barang.");
+			return;
+		}
+		type = 1;
+		data = config[item];
+	}
+	if ($("#telkomsel").css("display") != "none") {
+		item = $("#telkomsel input[name='item']:checked").val();
+		if (item == undefined) {
+			alert("Silahkan memilih barang.");
+			return;
+		}
+		type = 0;
+		data = config[item];
+	}
+	var uid = $("#uid").val();
+	if (uid == "") {
+		alert("Silahkan masukkan ID pemain.");
+		return;
+	}
+
+	var url = "/api/mimopay_web_recharge?uid=" + uid + "&type=" + type + "&productName=" + data.productName + "&amount=" + data.amount;
+	$.ajax({
+		type: "GET",
+		url: url,
+		success: function(msg) {
+			var ret = JSON.parse(msg);
+			if (ret.ret != 0) {
+				alert(ret.msg);
+				return;
+			}
+			window.location.href = ret.url;
+		}
+	})
+}
+</script>
+<style type="text/css">
+<!--
+	.STYLE1 {
+		font-size: 24px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: bold;
+		color: #112133;
+	}
+	.STYLE2 {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	.STYLE3 {
+		font-family: Arial, Helvetica, sans-serif;
+		color: #112133;
+		font-size: 14px;
+	}
+	.STYLE4 {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+	}
+	a:link {
+		color: #3a95ff;
+	}
+	a:visited {
+		color: #3a95ff;
+	}
+	.menuPay {
+		clear: both;
+		height: 50px;
+	}
+	.menuImg {
+		float: left;
+	}
+	.menuText {
+		float: left;
+		margin-left: 10px;
+		line-height: 40px;
+	}
+-->
+</style>
+</head>
+<body>
+<div class="mainDiv">
+  <div class="Logo"> <img src="images/logo.png"/>
+    <ul>
+      <li><a href="#">mimopay</a></li>
+    </ul>
+  </div>
+  <div style="height:250px">
+  <div class="Left">
+  		<div onclick="javascript:showPay(1)" class="menuPay"><img class="menuImg" src="images/mimopay_xl.png"/><div class="menuText"> XL Axiata </div></div>
+  		<div onclick="javascript:showPay(2)" class="menuPay"><img class="menuImg" src="images/mimopay_tel.png"/><div class="menuText"> Telkomsel </div></div>
+  </div>
+  <div class="Right" id="company" style="padding-top:36px; float: left">
+	<p><span class="STYLE1" id="pay_title"> XL Axiata </span></p>
+  	<div id="xl">
+		<label><input name="item" type="radio" value="21" checked /> 10 Intan = Rp 10000</label> <br>
+		<label><input name="item" type="radio" value="22" /> 20 Intan = Rp 20000</label> <br>
+		<label><input name="item" type="radio" value="23" /> 50 Intan = Rp 50000</label> <br>
+		<label><input name="item" type="radio" value="24" /> 100 Intan = Rp 100000</label><br>
+	</div>
+	<div id="telkomsel" style="display:none">
+		<label><input name="item" type="radio" value="11" /> 11 Intan = Rp 11000</label><br>
+		<label><input name="item" type="radio" value="12" /> 27 Intan = Rp 27500</label><br> 
+		<label><input name="item" type="radio" value="13" /> 55 Intan = Rp 55000</label> <br>
+		<label><input name="item" type="radio" value="14" /> 110 Intan = Rp 110000</label> <br>
+		<label><input name="item" type="radio" value="15" /> 275 Intan = Rp 275000</label> <br>
+		<label><input name="item" type="radio" value="16" /> 550 Intan = Rp 550000</label> <br>
+	</div>
+	<br>
+	<br>
+  	<div style="clear:both;height:50px">
+  	 ID Pemain: <input name="uid" id="uid" type="text"></input>  <span>(Intan akan ditambah ke ID ini!)</span><br>
+  		<br>
+  		<input type="button" value="  Membeli  " onclick="javascript:beli()"></input>
+  	</div>	
+  </div>
+  <div style="clear:both;height:50px"></div>
+  <div id="license">
+  <p>
+  Ptwing Technology Ltd. All Rights Reserved<br>
+   <a href="policy.html">Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="team.html">Terms of Use</a>
+   </p>
+  </div>
+</div>
+</body>
+</html>
